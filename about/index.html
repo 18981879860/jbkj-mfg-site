@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - jbkj-mfg</title>
+    <style>
+        /* ======== 基础重置 ======== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #1a1a1a;
+            line-height: 1.7;
+            background: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* ======== 导航 ======== */
+        .navbar {
+            background: #1a3a5c;
+            color: #fff;
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #2a5a8c;
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .logo span {
+            color: #6ab0f7;
+        }
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            font-size: 15px;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #fff;
+            text-decoration: none;
+            border-bottom-color: #6ab0f7;
+        }
+        .nav-links .btn-nav {
+            background: #2a7de1;
+            padding: 6px 22px;
+            border-radius: 20px;
+            border-bottom: none;
+            font-weight: 500;
+        }
+        .nav-links .btn-nav:hover {
+            background: #4a9df1;
+            border-bottom: none;
+        }
+        .nav-links .active {
+            color: #fff;
+            border-bottom-color: #6ab0f7;
+        }
+
+        /* ======== 页面横幅 ======== */
+        .page-banner {
+            background: linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.58)),
+                        url('https://i.imgs.ovh/2026/06/24/d268f6912799df88cc0962911dcabd79.jpg') center/cover no-repeat;
+            padding: 80px 0 70px;
+            text-align: center;
+            color: #fff;
+        }
+        .page-banner .sub-title {
+            color: #6ab0f7;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .page-banner h1 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .page-banner p {
+            font-size: 17px;
+            max-width: 800px;
+            margin: 0 auto 24px;
+            color: rgba(255,255,255,0.9);
+        }
+        .page-banner .btn-white {
+            background: #fff;
+            color: #1a3a5c;
+            padding: 12px 34px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .page-banner .btn-white:hover {
+            background: #e8f0fe;
+            text-decoration: none;
+        }
+
+        /* ======== 面包屑 ======== */
+        .breadcrumb {
+            background: #f8f9fa;
+            padding: 12px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .breadcrumb a {
+            color: #1a73e8;
+        }
+
+        /* ======== 通用标题 ======== */
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: #1a3a5c;
+            margin-bottom: 8px;
+        }
+        .section-sub {
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 36px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section {
+            padding: 50px 0;
+        }
+        .section-light {
+            background: #f7f9fc;
+        }
+        .section-dark {
+            background: #1e2832;
+            color: #fff;
+        }
+        .section-dark .section-title {
+            color: #fff;
+        }
+        .section-dark .section-sub {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* ======== 统计卡片 ======== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 24px 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #edf2f7;
+        }
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a73e8;
+        }
+        .stat-card p {
+            color: #666;
+            font-size: 15px;
+            margin-top: 4px;
+        }
+
+        /* ======== 两列内容 ======== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .two-col ul {
+            list-style: none;
+            padding: 0;
+        }
+        .two-col ul li {
+            padding: 6px 0;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 15px;
+        }
+        .two-col ul li::before {
+            content: '✓ ';
+            color: #1a73e8;
+            font-weight: 700;
+        }
+
+        /* ======== 能力/行业网格 ======== */
+        .cap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .cap-card {
+            background: #fff;
+            padding: 24px 20px;
+            border-radius: 10px;
+            border: 1px solid #edf2f7;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .cap-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+        .cap-card .icon {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .cap-card h4 {
+            color: #1a3a5c;
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+        .cap-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* ======== 底部 CTA ======== */
+        .cta-dark {
+            background: #1a3a5c;
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .cta-dark h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .cta-dark p {
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .cta-dark .btn-success {
+            background: #28a745;
+            color: #fff;
+            padding: 12px 34px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .cta-dark .btn-success:hover {
+            background: #218838;
+            text-decoration: none;
+        }
+
+        /* ======== 底部 ======== */
+        .footer {
+            background: #0d2a44;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 30px 0;
+            border-top: 3px solid #1a73e8;
+        }
+        .footer a {
+            color: rgba(255,255,255,0.9);
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        /* ======== 响应式 ======== */
+        @media (max-width: 992px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .cap-grid { grid-template-columns: 1fr 1fr; }
+            .two-col { grid-template-columns: 1fr; gap: 30px; }
+        }
+        @media (max-width: 768px) {
+            .page-banner h1 { font-size: 28px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .cap-grid { grid-template-columns: 1fr; }
+            .navbar .container { flex-direction: column; gap: 10px; }
+            .nav-links { justify-content: center; gap: 14px; }
+            .section-title { font-size: 22px; }
+        }
+        @media (max-width: 480px) {
+            .page-banner { padding: 50px 0; }
+            .page-banner h1 { font-size: 22px; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- 导航 -->
+<!-- ============================================================ -->
+<nav class="navbar">
+    <div class="container">
+        <a href="/" class="logo">jbkj<span>-mfg</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/capabilities/">Capabilities</a></li>
+            <li><a href="/case-studies/">Case Studies</a></li>
+            <li><a href="/about/" class="active">About</a></li>
+            <li><a href="/contact/" class="btn-nav">Get a Quote</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- 页面横幅 -->
+<!-- ============================================================ -->
+<section class="page-banner">
+    <div class="container">
+        <div class="sub-title">ISO 9001:2015 CERTIFIED MANUFACTURER</div>
+        <h1>Engineering Precision Components for Global Industrial Applications</h1>
+        <p>Founded in 2011, Chengdu Jingbang Technology Co., Ltd is a precision manufacturing company specializing in custom fasteners, CNC machined components, sheet metal fabrication, and engineered mechanical assemblies.</p>
+        <a href="/contact/" class="btn-white">Request A Quote →</a>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 面包屑 -->
+<!-- ============================================================ -->
+<div class="breadcrumb">
+    <div class="container">
+        <a href="/">Home</a> / <strong>About Us</strong>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 核心统计 -->
+<!-- ============================================================ -->
+<section class="section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">2011</div>
+                <p>Founded</p>
+            </div>
+            <div class="stat-card">
+                <div class="number">ISO 9001</div>
+                <p>Quality Certified</p>
+            </div>
+            <div class="stat-card">
+                <div class="number">Global</div>
+                <p>Worldwide Export</p>
+            </div>
+            <div class="stat-card">
+                <div class="number">OEM</div>
+                <p>Custom Manufacturing</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 公司概述 + 能力列表 -->
+<!-- ============================================================ -->
+<section class="section section-light">
+    <div class="container">
+        <div class="two-col">
+            <div>
+                <h2 class="section-title" style="text-align: left;">Who We Are</h2>
+                <p>Jingbang Technology is a manufacturing-driven engineering partner focused on precision metal and plastic component production. Our expertise spans industrial fasteners, CNC machining, custom fabrication, and OEM component manufacturing for demanding mechanical applications.</p>
+                <p style="margin-top: 12px;">By integrating advanced machining, cold heading, surface finishing, inspection, and assembly processes under one coordinated manufacturing system, we help customers simplify supply chains, reduce lead times, and maintain consistent product quality from prototype to production.</p>
+            </div>
+            <div>
+                <h3 style="color: #1a3a5c; margin-bottom: 8px;">Core Capabilities</h3>
+                <ul>
+                    <li>Precision CNC Milling &amp; Turning</li>
+                    <li>Cold Heading &amp; Thread Rolling</li>
+                    <li>Sheet Metal Fabrication</li>
+                    <li>Custom Security Fasteners</li>
+                    <li>Surface Finishing &amp; Heat Treatment</li>
+                    <li>Assembly &amp; Inspection</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 为什么选择我们 -->
+<!-- ============================================================ -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Why Engineering Teams Work With Us</h2>
+        <p class="section-sub">We focus on manufacturing execution, technical communication, and production reliability — helping customers move efficiently from prototype to full-scale production.</p>
+        <div class="cap-grid">
+            <div class="cap-card">
+                <span class="icon">🔧</span>
+                <h4>Engineering-Oriented Manufacturing</h4>
+                <p>We manufacture directly from technical drawings and CAD files while supporting DFM optimization and material selection.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">⚡</span>
+                <h4>Rapid Prototyping &amp; Production</h4>
+                <p>Fast production scheduling and coordinated processes allow rapid turnaround for prototypes and production orders.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">🔗</span>
+                <h4>Integrated Supply Chain Support</h4>
+                <p>Machining, finishing, inspection, marking, and packaging coordinated through a single manufacturing workflow.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">📐</span>
+                <h4>Precision Quality Control</h4>
+                <p>Dimensional inspection, thread verification, surface evaluation, and material traceability integrated into production.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">🔩</span>
+                <h4>Custom Fastener Expertise</h4>
+                <p>Specialized experience in security fasteners, titanium fasteners, custom bolts, nuts, screws, and shaft collars.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">🌍</span>
+                <h4>Reliable Global Delivery</h4>
+                <p>Strong on-time delivery performance to support engineering schedules and industrial production timelines.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 行业领域 -->
+<!-- ============================================================ -->
+<section class="section section-light">
+    <div class="container">
+        <h2 class="section-title">Industries We Support</h2>
+        <p class="section-sub">Our manufacturing capabilities support a broad range of industrial and engineering applications.</p>
+        <div class="cap-grid">
+            <div class="cap-card">
+                <span class="icon">🚗</span>
+                <h4>Automotive</h4>
+                <p>Lightweight fasteners, brackets, performance hardware, and machined components.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">🤖</span>
+                <h4>Robotics &amp; Automation</h4>
+                <p>Precision assemblies and machined parts for automated systems and motion equipment.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">📱</span>
+                <h4>Electronics</h4>
+                <p>Custom enclosures, precision hardware, connectors, and mounting systems.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">🏭</span>
+                <h4>Industrial Equipment</h4>
+                <p>Engineered components for mechanical systems and industrial machinery.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">✈️</span>
+                <h4>Aerospace</h4>
+                <p>High-strength, lightweight components for demanding aerospace applications.</p>
+            </div>
+            <div class="cap-card">
+                <span class="icon">🏥</span>
+                <h4>Medical</h4>
+                <p>Precision components with strict quality and traceability requirements.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 质量与制造标准 -->
+<!-- ============================================================ -->
+<section class="section">
+    <div class="container">
+        <div class="two-col">
+            <div>
+                <h2 style="color: #1a3a5c; font-size: 24px; margin-bottom: 8px;">Quality Control &amp; Manufacturing Standards</h2>
+                <p>Quality management is integrated throughout our manufacturing workflow — from raw material verification and process control to final inspection and shipment validation.</p>
+                <ul style="margin-top: 12px; list-style: none; padding: 0;">
+                    <li style="padding: 4px 0; border-bottom: 1px solid #edf2f7;">✓ ISO 9001:2015 quality management system</li>
+                    <li style="padding: 4px 0; border-bottom: 1px solid #edf2f7;">✓ Material certification and traceability</li>
+                    <li style="padding: 4px 0; border-bottom: 1px solid #edf2f7;">✓ CMM dimensional inspection</li>
+                    <li style="padding: 4px 0; border-bottom: 1px solid #edf2f7;">✓ Thread gauge verification</li>
+                    <li style="padding: 4px 0; border-bottom: 1px solid #edf2f7;">✓ Salt spray and hardness testing</li>
+                    <li style="padding: 4px 0;">✓ FAI and in-process inspection procedures</li>
+                </ul>
+            </div>
+            <div>
+                <img src="https://kuula.co/share/collection/7ZyQT?logo=1&info=1&fs=1&vr=0&zoom=1&sd=1&thumbs=1" alt="Quality Control" style="border-radius: 12px; border: 1px solid #edf2f7;">
+                <p style="margin-top: 12px; font-size: 14px; color: #666;">For more detailed inspection procedures and tolerance information, please visit our <a href="/quality-control/">Quality Control Page</a>.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 引流到主站 -->
+<!-- ============================================================ -->
+<section style="background: #1a3a5c; color: #fff; padding: 30px 0; text-align: center;">
+    <div class="container">
+        <p style="font-size: 15px; color: rgba(255,255,255,0.85);">
+            jbkj-mfg is a brand of <strong>JingBang Tech</strong> —
+            <a href="https://www.jingbang-tech.com" target="_blank" rel="noopener" style="color: #6ab0f7;">Visit our main site →</a>
+        </p>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 底部 -->
+<!-- ============================================================ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/capabilities/">Capabilities</a>
+            <a href="/case-studies/">Case Studies</a>
+            <a href="/about/">About</a>
+            <a href="/contact/">Get a Quote</a>
+        </div>
+        <p>© 2026 jbkj-mfg.com | Precision CNC Machining & Manufacturing</p>
+        <p style="font-size: 14px; margin-top: 4px;">
+            Email: <a href="mailto:abby@jbkj-mfg.com">abby@jbkj-mfg.com</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
