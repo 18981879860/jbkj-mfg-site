@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturing Capabilities - jbkj-mfg</title>
+    <style>
+        /* ======== 基础重置 ======== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #1a1a1a;
+            line-height: 1.7;
+            background: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* ======== 导航 ======== */
+        .navbar {
+            background: #1a3a5c;
+            color: #fff;
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #2a5a8c;
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .logo span {
+            color: #6ab0f7;
+        }
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            font-size: 15px;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #fff;
+            text-decoration: none;
+            border-bottom-color: #6ab0f7;
+        }
+        .nav-links .btn-nav {
+            background: #2a7de1;
+            padding: 6px 22px;
+            border-radius: 20px;
+            border-bottom: none;
+            font-weight: 500;
+        }
+        .nav-links .btn-nav:hover {
+            background: #4a9df1;
+            border-bottom: none;
+        }
+        .nav-links .active {
+            color: #fff;
+            border-bottom-color: #6ab0f7;
+        }
+
+        /* ======== 页面横幅 ======== */
+        .page-banner {
+            background: linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
+                        url('https://i.imgs.ovh/2026/06/24/bf39764168312ec40f05067fccb7855c.jpg') center/cover no-repeat;
+            padding: 200px 0;
+            text-align: center;
+            color: #fff;
+        }
+        .page-banner h1 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .page-banner p {
+            font-size: 17px;
+            max-width: 700px;
+            margin: 0 auto 28px;
+            color: rgba(255,255,255,0.85);
+        }
+        .page-banner .btn-white {
+            background: #fff;
+            color: #1a3a5c;
+            padding: 12px 34px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .page-banner .btn-white:hover {
+            background: #e8f0fe;
+            text-decoration: none;
+        }
+
+        /* ======== 通用标题 ======== */
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: #1a3a5c;
+            margin-bottom: 8px;
+        }
+        .section-sub {
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 36px;
+        }
+        .section {
+            padding: 50px 0;
+        }
+        .section-blue {
+            background: #045cb4;
+            color: #fff;
+        }
+        .section-blue .section-title {
+            color: #fff;
+        }
+        .section-blue .section-sub {
+            color: rgba(255,255,255,0.85);
+        }
+        .section-light {
+            background: #f7f9fc;
+        }
+
+        /* ======== 三列布局（能力页专用） ======== */
+        .cap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .cap-col h2 {
+            font-size: 20px;
+            color: #fff;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+        .cap-col h3 {
+            font-size: 16px;
+            color: #fff;
+            margin: 16px 0 4px;
+        }
+        .cap-col p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 8px;
+        }
+        .cap-col a {
+            color: #fff;
+            text-decoration: underline;
+            font-size: 14px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .cap-col a:hover {
+            color: #6ab0f7;
+        }
+
+        /* ======== 材料展示网格 ======== */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .material-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #edf2f7;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+        .material-card:hover {
+            transform: translateY(-4px);
+        }
+        .material-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 0;
+        }
+        .material-card .info {
+            padding: 16px;
+        }
+        .material-card h4 {
+            color: #1a3a5c;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .material-card p {
+            color: #666;
+            font-size: 13px;
+        }
+        .material-card a {
+            color: #1a73e8;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* ======== FAQ 折叠 ======== */
+        .faq-item {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .faq-item .question {
+            padding: 16px 20px;
+            font-weight: 600;
+            color: #1a3a5c;
+            cursor: pointer;
+            background: #f7f9fc;
+            transition: background 0.2s;
+        }
+        .faq-item .question:hover {
+            background: #edf2f7;
+        }
+        .faq-item .answer {
+            padding: 16px 20px;
+            color: #444;
+            font-size: 15px;
+            border-top: 1px solid #e2e8f0;
+            display: none;
+        }
+        .faq-item .answer.show {
+            display: block;
+        }
+        .faq-item .question::after {
+            content: '▾';
+            float: right;
+            font-size: 18px;
+            color: #1a73e8;
+        }
+        .faq-item .question.active::after {
+            content: '▴';
+        }
+
+        /* ======== CTA 区块 ======== */
+        .cta-section {
+            background: #045cb4;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .cta-section h2 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+        .cta-section p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 20px;
+        }
+        .cta-section .btn-white {
+            background: #fff;
+            color: #045cb4;
+            padding: 12px 34px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .cta-section .btn-white:hover {
+            background: #e8f0fe;
+            text-decoration: none;
+        }
+
+        /* ======== 底部 ======== */
+        .footer {
+            background: #0d2a44;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 30px 0;
+            border-top: 3px solid #1a73e8;
+        }
+        .footer a {
+            color: rgba(255,255,255,0.9);
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        /* ======== 响应式 ======== */
+        @media (max-width: 992px) {
+            .cap-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .materials-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .page-banner h1 { font-size: 28px; }
+            .cap-grid { grid-template-columns: 1fr; }
+            .materials-grid { grid-template-columns: 1fr; }
+            .navbar .container { flex-direction: column; gap: 10px; }
+            .nav-links { justify-content: center; gap: 14px; }
+            .section-title { font-size: 22px; }
+        }
+        @media (max-width: 480px) {
+            .page-banner { padding: 50px 0; }
+            .page-banner h1 { font-size: 22px; }
+            .cap-col h2 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- 导航 -->
+<!-- ============================================================ -->
+<nav class="navbar">
+    <div class="container">
+        <a href="/" class="logo">jbkj<span>-mfg</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/capabilities/" class="active">Capabilities</a></li>
+            <li><a href="/case-studies/">Case Studies</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/" class="btn-nav">Get a Quote</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- 页面横幅 -->
+<!-- ============================================================ -->
+<section class="page-banner">
+    <div class="container">
+        <h1>Integrated Manufacturing Capabilities</h1>
+        <p>At Jingbang Technology, we are more than a component supplier; we are a full-service manufacturing partner. Our capabilities are built to transform complex engineering designs into tangible, production-ready products.</p>
+        <a href="/contact/" class="btn-white">Talk to an Expert →</a>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 核心能力三列布局 -->
+<!-- ============================================================ -->
+<section class="section section-blue">
+    <div class="container">
+        <h2 class="section-title">We Are Metal Parts Manufacturing Experts</h2>
+        <div class="cap-grid">
+
+            <!-- 第1列：核心制造工艺 -->
+            <div class="cap-col">
+                <h2>Core Manufacturing Processes</h2>
+                <h3>CNC Machining Processes</h3>
+                <p>Precision multi-axis CNC milling and turning for complex geometries with tight tolerances.</p>
+                <a href="#">EDM →</a> <a href="#">CNC Milling →</a> <a href="#">CNC Turning →</a> <a href="#">Laser Cutting →</a>
+
+                <h3>Cold Heading & Forging</h3>
+                <p>High-speed, high-volume production of custom screws, bolts, and pins.</p>
+                <a href="#">Cold Heading →</a> <a href="#">Multi-Station Cold Heading →</a>
+
+                <h3>Sheet Metal Fabrication</h3>
+                <p>Laser cutting, CNC forming, welding, and assembly of custom chassis and panels.</p>
+                <a href="#">Drilling →</a> <a href="#">Riveting →</a> <a href="#">Bending →</a> <a href="#">Stamping →</a>
+
+                <h3>Welding Techniques</h3>
+                <p>TIG/MIG welding for assemblies, ensuring structural integrity and durability.</p>
+                <a href="#">Arc Welding →</a> <a href="#">Spot Welding →</a> <a href="#">Friction Welding →</a>
+
+                <h3>Injection Molding</h3>
+                <p>High-volume production of complex plastic parts with consistent quality.</p>
+                <a href="#">Two-Shot Molding →</a> <a href="#">Precision Injection Molding →</a>
+            </div>
+
+            <!-- 第2列：表面处理 -->
+            <div class="cap-col">
+                <h2>Comprehensive Surface Finishing</h2>
+                <p>The finish of a part is critical for performance, durability, and aesthetics.</p>
+
+                <h3>Chemical Treatments</h3>
+                <a href="#">Black Oxide →</a> <a href="#">Anodizing (Type II & III) →</a> <a href="#">Passivation →</a>
+
+                <h3>Electroplating</h3>
+                <a href="#">Galvanizing →</a> <a href="#">Zinc Plating →</a> <a href="#">Nickel Plating →</a>
+                <a href="#">Copper Plating →</a> <a href="#">Chromium Plating →</a>
+
+                <h3>Mechanical Treatments</h3>
+                <a href="#">Brushed Finish →</a> <a href="#">Polishing →</a> <a href="#">Shot Peening →</a>
+                <a href="#">Sandblasting →</a>
+
+                <h3>Coating & Painting</h3>
+                <a href="#">Powder Coating →</a> <a href="#">Electrostatic Spraying →</a>
+            </div>
+
+            <!-- 第3列：质量控制 -->
+            <div class="cap-col">
+                <h2>Quality Control & Other Services</h2>
+                <p>Quality is engineered into our process from the beginning.</p>
+
+                <h3>Dimensional Inspection</h3>
+                <a href="#">CMM Inspection →</a> <a href="#">Optical Comparator →</a>
+                <a href="#">Thread Gauge →</a> <a href="#">Surface Roughness Tester →</a>
+
+                <h3>Material Certification & Traceability</h3>
+                <a href="#">Material Test Reports (MTRs) →</a> <a href="#">Salt Spray Testing →</a>
+                <a href="#">Hardness Testing →</a>
+
+                <h3>Personalization & Marking</h3>
+                <a href="#">Laser Marking →</a> <a href="#">Screen Printing →</a>
+                <a href="#">Inkjet Marking →</a> <a href="#">Heat Treatment →</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 材料与产品展示 -->
+<!-- ============================================================ -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Materials & Products Gallery</h2>
+        <p class="section-sub">A wide range of metals and engineering plastics available for your projects</p>
+        <div class="materials-grid">
+            <div class="material-card">
+                <img src="https://i.imgs.ovh/2026/06/24/5a5140314f5c91f61394edd168e68f04.jpg" alt="Stainless Steel Parts">
+                <div class="info">
+                    <h4>Stainless Steel Parts</h4>
+                    <p>304, 316, 17-4 PH. Superior corrosion resistance for medical, marine, food processing.</p>
+                    <a href="#">Learn More →</a>
+                </div>
+            </div>
+            <div class="material-card">
+                <img src="https://i.imgs.ovh/2026/06/24/955f50be8a5af53040deed87070edc22.jpg" alt="Aluminum Parts">
+                <div class="info">
+                    <h4>Custom Aluminum Parts</h4>
+                    <p>6061, 5052, 2024, 6063, 7075. Lightweight, ideal for electronics and aerospace.</p>
+                    <a href="#">Learn More →</a>
+                </div>
+            </div>
+            <div class="material-card">
+                <img src="https://https://i.imgs.ovh/2026/06/24/bc98edb701f9e42e223e6a26e3ae84f5.png" alt="Brass Parts">
+                <div class="info">
+                    <h4>Brass CNC Machining</h4>
+                    <p>Copper, bronze, and brass alloys. Excellent conductivity for fittings and connectors.</p>
+                    <a href="#">Learn More →</a>
+                </div>
+            </div>
+            <div class="material-card">
+                <img src="https://https://i.imgs.ovh/2026/06/24/176307ec19517b51a0002752c3e58dcd.png" alt="Sheet Metal">
+                <div class="info">
+                    <h4>Custom Sheet Metal</h4>
+                    <p>Brackets, plates, frames, enclosures, and more. Laser cutting and forming.</p>
+                    <a href="#">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FAQ 区块 -->
+<!-- ============================================================ -->
+<section class="section section-light">
+    <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <div class="question" onclick="this.nextElementSibling.classList.toggle('show'); this.classList.toggle('active');">What is 'integrated manufacturing'?</div>
+            <div class="answer">Integrated manufacturing means we handle multiple production stages in-house — from CNC machining and surface finishing to assembly. This gives you a single point of responsibility, saving time and logistics costs.</div>
+        </div>
+        <div class="faq-item">
+            <div class="question" onclick="this.nextElementSibling.classList.toggle('show'); this.classList.toggle('active');">Can you help with Design for Manufacturability (DFM)?</div>
+            <div class="answer">Yes. Our engineers review every design to identify potential challenges, suggest cost-saving modifications, and ensure the design is optimized for production. This proactive review helps avoid costly revisions.</div>
+        </div>
+        <div class="faq-item">
+            <div class="question" onclick="this.nextElementSibling.classList.toggle('show'); this.classList.toggle('active');">What industries do you primarily serve?</div>
+            <div class="answer">We serve automotive, aerospace, medical, robotics, electronics, energy, and railway industries — with significant experience in each sector.</div>
+        </div>
+        <div class="faq-item">
+            <div class="question" onclick="this.nextElementSibling.classList.toggle('show'); this.classList.toggle('active');">How do I get a quote for my project?</div>
+            <div class="answer">Visit our <a href="/contact/">Contact Page</a> and upload your 3D CAD files (STEP preferred) and 2D drawings. Our team will review and provide a detailed quote within 24 hours.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CTA 区块 -->
+<!-- ============================================================ -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Talk To An Expert</h2>
+        <p>Let us be your partner in supply chain management.</p>
+        <a href="/contact/" class="btn-white">Get a Quote →</a>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 引流到主站 -->
+<!-- ============================================================ -->
+<section style="background: #1a3a5c; color: #fff; padding: 30px 0; text-align: center;">
+    <div class="container">
+        <p style="font-size: 15px; color: rgba(255,255,255,0.85);">
+            jbkj-mfg is a brand of <strong>JingBang Tech</strong> —
+            <a href="https://www.jingbang-tech.com" target="_blank" rel="noopener" style="color: #6ab0f7;">Visit our main site →</a>
+        </p>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 底部 -->
+<!-- ============================================================ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/capabilities/">Capabilities</a>
+            <a href="/case-studies/">Case Studies</a>
+            <a href="/about/">About</a>
+            <a href="/contact/">Get a Quote</a>
+        </div>
+        <p>© 2026 jbkj-mfg.com | Precision CNC Machining & Manufacturing</p>
+        <p style="font-size: 14px; margin-top: 4px;">
+            Email: <a href="mailto:abby@jbkj-mfg.com">abby@jbkj-mfg.com</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
